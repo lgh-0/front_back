@@ -1,4 +1,4 @@
-
+`services.msc`
 get post put delete patch
 ```{js}
 axios.get("/api/user/1")
@@ -110,3 +110,6 @@ Vue 会帮你把 value 属性和 input 事件绑定好。
 如果最终是对象 → ref({})
 
 如果是单值 → ref('') 或 ref(null)
+
+SELECT * FROM [demo1].[dbo].[table1];
+
