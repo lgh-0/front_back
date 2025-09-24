@@ -101,6 +101,70 @@ department2020 派工单表 预加载前1000条数据
 
  select * from 派工单 where 订单批号 like '%  %'  and 料品名称 like '%  %' and 规格型号 like '%  %' and 确定交期 between '' and ''
 
+
+ # 前后端跨域问题
+ 你这个问题涉及 前端开发环境代理 和 部署环境跨域，我帮你梳理下思路：
+
+1. changeOrigin: true 的作用
+
+在 Vue2 的 vue.config.js 或 Vue3 的 vite.config.js 里配置 proxy 时，
+changeOrigin: true 表示 开发服务器（webpack-dev-server / Vite dev server）在转发请求时，会把请求头里的 Origin 改成目标地址的域名。
+
+这相当于“伪装”成后端允许的请求源，从而在本地开发时解决跨域问题。
+
+⚠️ 注意：这是 开发代理 的功能，只在本地调试时生效，生产环境（打包后）不起作用。
+
+2. 部署到生产环境时
+
+打包后的前端代码是静态文件，不再经过 dev server 代理，所以 proxy 配置不再生效。
+这时跨域问题要看部署方式：
+
+✅ 方案 A：前后端同域（推荐）
+
+用 Nginx 把前端和后端统一到一个域名下，比如：
+
+前端访问：https://example.com/ → 静态文件（Vue 打包结果）
+
+后端访问：https://example.com/api/ → 反向代理到 127.0.0.1:8000
+
+这样请求都在同一域下，根本没有跨域问题。
+
+Nginx 配置类似：
+```shell
+server {
+    listen 80;
+    server_name example.com;
+
+    location / {
+        root /usr/share/nginx/html;  # Vue 打包后的 dist
+        index index.html;
+    }
+
+    location /api {
+        proxy_pass http://127.0.0.1:8000;
+    }
+}
+```
+✅ 方案 B：前后端不同域
+
+如果前端是 https://www.example.com，后端是 https://api.example.com，那就是跨域。
+
+这种情况下就不能靠前端 proxy 了，要么：
+
+在后端开启 CORS，允许指定的前端域名访问（比如 FastAPI、Spring Boot 都有对应配置）。
+
+或者继续用 Nginx 做反向代理，把 /api 转发到后端。
+
+3. 结论
+
+changeOrigin: true 只是开发环境本地解决跨域。
+
+部署后：
+
+如果前后端同域，不用管，Nginx 配置代理即可。
+
+如果前后端分离不同域，需要后端允许 CORS 或 Nginx 做跨域转发。
+
 ​	
 
 

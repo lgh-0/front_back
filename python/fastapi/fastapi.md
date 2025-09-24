@@ -80,3 +80,34 @@ def get_connection():
     return conn
 
 ```
+
+## 3.路由
+```python
+@app.get("/hello")
+def say_hello():
+    return {"msg": "hello"}
+# 这时候 /hello 就是一个 路由路径，对应一个后端接口。
+```
+
+总结一句话：
+- FastAPI 的路由就是 URL → Python 函数 的映射关系。
+
+- @app.get("/xxx")：直接在 app 上定义路由
+
+- @router.get("/xxx")：在子路由上定义路由
+
+app.include_router(router)：把子路由合并到总路由
+
+你提到的“FastAPI 使用方式”
+
+你理解得对，FastAPI 的常见用法就是：
+
+- 连接数据库（SQLAlchemy、TortoiseORM、pyodbc 等）
+
+- 写一些 RESTful API 接口（@get、@post）
+
+- 组织到不同的 APIRouter 里，最后统一在 main.py 挂载到 app
+
+- 这样前端就能通过请求 http://host:port/xxx 调用对应接口。
+
+✅ 所以，app.include_router(login.router) 的意思就是：把 login.py 里定义的那组 API 接口挂到后端总应用 app 上。
