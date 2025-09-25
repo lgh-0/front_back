@@ -113,3 +113,6 @@ Vue 会帮你把 value 属性和 input 事件绑定好。
 
 SELECT * FROM [demo1].[dbo].[table1];
 
+# 三、axios
+## 3.1 前端发送参数
+
