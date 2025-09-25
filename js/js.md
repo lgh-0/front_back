@@ -119,8 +119,25 @@ axios.get(url, { params })         // GET 请求，查询参数拼到 URL 上
 axios.post(url, data, { config })  // POST 请求，参数放在请求体里
 axios.put(url, data)
 axios.delete(url, { params })
+
+
 ```
 ## 3.1 前端发送参数
+```js
+// GET /api/users?page=1&page_size=10
+axios.get('/api/users', {
+  params: { page: 1, page_size: 10 }
+})
+// 那么请求体的内容就是
+{ "name": "张三", "age": 20 }
+
+```
+axios + 后端的交互模式
+GET 请求 + params：适合查询、筛选、分页（你现在的场景）。
+POST 请求 + data：适合新增数据、传复杂 JSON。
+PUT / PATCH 请求：更新数据。
+DELETE 请求：删除数据。
+你这里用 GET + params 是标准的做法，尤其是分页查询接口。
 ## 3.2
 ## 3.3
 ## 3.4
