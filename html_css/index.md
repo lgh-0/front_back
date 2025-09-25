@@ -58,3 +58,81 @@ justify-content: space-evenly; → 子元素和边界之间的空隙完全一致
 */
 <style>
 ```
+# 二、elementUI
+✅ 第一种：el-table
+```html
+<el-table :data="tableData">
+  <!-- 固定的序号列 -->
+  <el-table-column type="index" label="序号" />
+  
+  <!-- 动态渲染的其他列 -->
+  <el-table-column v-for="col in columns" :prop="col.prop" :label="col.label" />
+</el-table>
+```
+特点
+
+核心用途：表格展示型数据（数据库查询结果、列表、报表等）。
+
+优势：
+
+内置分页、排序、筛选、斑马纹、固定列、合并单元格等丰富功能。
+
+列定义清晰，配合 v-for 可以动态渲染列配置。
+
+天然适合后端接口返回的 二维表结构数据（数组对象）。
+
+使用场景
+
+显示查询结果（比如你的“派工单查询”）。
+
+展示订单列表、用户表、库存表等典型表格。
+
+✅ 第二种：el-form + el-row + el-col
+```html
+<el-form>
+  <el-row>
+    <el-col :span="8">
+      <el-form-item label="订单批号">
+        <el-input v-model="form.orderBatch" />
+      </el-form-item>
+    </el-col>
+    <el-col :span="8">
+      <el-form-item label="料品编码">
+        <el-input v-model="form.partCode" />
+      </el-form-item>
+    </el-col>
+  </el-row>
+</el-form>
+```
+特点
+
+核心用途：表单布局（数据输入、参数筛选、配置项编辑）。
+
+优势：
+
+基于栅格系统（el-row/el-col），可以很灵活地实现响应式布局。
+
+和 el-form-item 结合，方便做 表单校验。
+
+更适合做“数据录入”而不是“数据展示”。
+
+使用场景
+
+搜索条件表单（比如上面你的 filters 就可以用它渲染）。
+
+用户注册、信息编辑、配置页面。
+
+📊 总结对比
+功能	el-table	el-form + el-row/el-col
+主要作用	展示数据	输入/编辑数据
+渲染方式	表格化，每一行表示一条记录	栅格布局，每一行表示一组字段
+内置功能	排序、分页、合并单元格、固定列	表单校验、输入控件绑定
+适用场景	数据报表、查询结果	筛选条件、配置界面、注册表单
+
+👉 所以你看到的“派工单查询”其实是 el-form（上方搜索区）+ el-table（下方结果区） 的组合，这是一个常见模式：
+
+上面用表单做查询条件
+
+下面用表格展示查询结果
+
+
