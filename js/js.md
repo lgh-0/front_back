@@ -114,6 +114,12 @@ Vue 会帮你把 value 属性和 input 事件绑定好。
 SELECT * FROM [demo1].[dbo].[table1];
 
 # 三、axios
+```js
+axios.get(url, { params })         // GET 请求，查询参数拼到 URL 上
+axios.post(url, data, { config })  // POST 请求，参数放在请求体里
+axios.put(url, data)
+axios.delete(url, { params })
+```
 ## 3.1 前端发送参数
 ## 3.2
 ## 3.3
