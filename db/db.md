@@ -273,3 +273,14 @@ CREATE TABLE department2020.dbo.派工单 (
 
 
 
+CREATE TABLE Dictionary.dbo.Abus2020 (
+	表名 nvarchar(255) COLLATE Chinese_PRC_CI_AS NULL,
+	中文表名 nvarchar(255) COLLATE Chinese_PRC_CI_AS NULL,
+	字段 nvarchar(255) COLLATE Chinese_PRC_CI_AS NULL,
+	数据类型 nvarchar(255) COLLATE Chinese_PRC_CI_AS NULL,
+	中文字段名 nvarchar(255) COLLATE Chinese_PRC_CI_AS NULL,
+	示例 nvarchar(255) COLLATE Chinese_PRC_CI_AS NULL,
+	是否主键 nvarchar(255) COLLATE Chinese_PRC_CI_AS NULL,
+	是否允许为空 nvarchar(255) COLLATE Chinese_PRC_CI_AS NULL,
+	备注 nvarchar(255) COLLATE Chinese_PRC_CI_AS NULL
+);
