@@ -284,3 +284,72 @@ CREATE TABLE Dictionary.dbo.Abus2020 (
 	是否允许为空 nvarchar(255) COLLATE Chinese_PRC_CI_AS NULL,
 	备注 nvarchar(255) COLLATE Chinese_PRC_CI_AS NULL
 );
+
+
+// 派工单1
+
+-- department2020.dbo.派工单1 definition
+
+-- Drop table
+
+-- DROP TABLE department2020.dbo.派工单1;
+
+CREATE TABLE department2020.dbo.派工单1 (
+	[_Identify] int IDENTITY(1,1) NOT NULL,
+	[_Locked] bit NULL,
+	[_SortKey] numeric(28,14) NULL,
+	PublishDate datetime NULL,
+	工单编号 nvarchar(30) COLLATE Chinese_PRC_CI_AS NULL,
+	工单状态 nvarchar(16) COLLATE Chinese_PRC_CI_AS NULL,
+	生产车间 nvarchar(16) COLLATE Chinese_PRC_CI_AS NULL,
+	锁类分区 nvarchar(16) COLLATE Chinese_PRC_CI_AS NULL,
+	锁体分区 nvarchar(16) COLLATE Chinese_PRC_CI_AS NULL,
+	生产线编号 nvarchar(30) COLLATE Chinese_PRC_CI_AS NULL,
+	订单批号 nvarchar(50) COLLATE Chinese_PRC_CI_AS NULL,
+	料品编码 nvarchar(30) COLLATE Chinese_PRC_CI_AS NULL,
+	料品名称 nvarchar(30) COLLATE Chinese_PRC_CI_AS NULL,
+	料品类别 nvarchar(30) COLLATE Chinese_PRC_CI_AS NULL,
+	规格型号 nvarchar(255) COLLATE Chinese_PRC_CI_AS NULL,
+	规格备注 ntext COLLATE Chinese_PRC_CI_AS NULL,
+	订单数量 int NULL,
+	计划工时 float NULL,
+	计划开始时间 datetime NULL,
+	计划完成时间 datetime NULL,
+	计划产量 int NULL,
+	ERP报工产量 int NULL,
+	实际产量 int NULL,
+	装嵌计划开始时间 datetime NULL,
+	确定交期 datetime NULL,
+	工序规格码 nvarchar(30) COLLATE Chinese_PRC_CI_AS NULL,
+	工作内容 nvarchar(200) COLLATE Chinese_PRC_CI_AS NULL,
+	员工编号 nvarchar(100) COLLATE Chinese_PRC_CI_AS NULL,
+	员工姓名 nvarchar(100) COLLATE Chinese_PRC_CI_AS NULL,
+	员工工号 nvarchar(100) COLLATE Chinese_PRC_CI_AS NULL,
+	实际开始时间 datetime NULL,
+	实际完工时间 datetime NULL,
+	实际工时 int NULL,
+	合格品数 int NULL,
+	不合格数 int NULL,
+	任务审核 bit NULL,
+	任务审核人 nvarchar(16) COLLATE Chinese_PRC_CI_AS NULL,
+	车间确认 bit NULL,
+	车间确认时间 datetime NULL,
+	车间确认人 nvarchar(16) COLLATE Chinese_PRC_CI_AS NULL,
+	备注 ntext COLLATE Chinese_PRC_CI_AS NULL,
+	商标 nvarchar(16) COLLATE Chinese_PRC_CI_AS NULL,
+	年份代号 nvarchar(16) COLLATE Chinese_PRC_CI_AS NULL,
+	邮箱编码 nvarchar(30) COLLATE Chinese_PRC_CI_AS NULL,
+	客户 nvarchar(30) COLLATE Chinese_PRC_CI_AS NULL,
+	订单备注 ntext COLLATE Chinese_PRC_CI_AS NULL,
+	计划产能 float NULL,
+	安排备注 ntext COLLATE Chinese_PRC_CI_AS NULL,
+	JOBExternalID nvarchar(100) COLLATE Chinese_PRC_CI_AS NULL,
+	MoExternalId nvarchar(100) COLLATE Chinese_PRC_CI_AS NULL,
+	OpExternalId nvarchar(100) COLLATE Chinese_PRC_CI_AS NULL,
+	ActExternalID nvarchar(100) COLLATE Chinese_PRC_CI_AS NULL,
+	任务编号 nvarchar(30) COLLATE Chinese_PRC_CI_AS NULL,
+	任务批号 nvarchar(30) COLLATE Chinese_PRC_CI_AS NULL,
+	订单编号 nvarchar(30) COLLATE Chinese_PRC_CI_AS NULL,
+	产品内码 nvarchar(30) COLLATE Chinese_PRC_CI_AS NULL,
+	publish_history ntext COLLATE Chinese_PRC_CI_AS NULL
+);
