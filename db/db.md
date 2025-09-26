@@ -353,3 +353,16 @@ CREATE TABLE department2020.dbo.派工单1 (
 	产品内码 nvarchar(30) COLLATE Chinese_PRC_CI_AS NULL,
 	publish_history ntext COLLATE Chinese_PRC_CI_AS NULL
 );
+
+
+CREATE TABLE department2020.dbo.erp_osal_ord2_log_report (
+	订单批号 varchar(50) COLLATE Chinese_PRC_CI_AS NULL,
+	料品名称 nvarchar(255) COLLATE Chinese_PRC_CI_AS NULL,
+	规格型号 nvarchar(255) COLLATE Chinese_PRC_CI_AS NULL,
+	[修改前-确定交期] datetime2 NULL,
+	[修改后-确定交期] datetime2 NULL,
+	订单数量 int NULL,
+	修改时间 datetime2 NULL,
+	装嵌完成数量 float NOT NULL,
+	HasFinished int NOT NULL
+);
