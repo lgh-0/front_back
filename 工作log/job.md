@@ -43,5 +43,7 @@ export default {
 win连接远程服务器win + R mstsc 
 # 一、重要
 网络共享地址 \\192.168.1.123\Web_ABUS
+node的安装地址  C:\Tools\Node
+
 
 
