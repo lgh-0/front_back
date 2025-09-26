@@ -366,3 +366,43 @@ CREATE TABLE department2020.dbo.erp_osal_ord2_log_report (
 	装嵌完成数量 float NOT NULL,
 	HasFinished int NOT NULL
 );
+
+ddl语句
+CREATE TABLE department2020.dbo.派工单 (
+    [_Identify] int IDENTITY(1,1) NOT NULL,
+    [PublishDate] datetime NULL,
+    [工单编号] nvarchar(250) COLLATE Chinese_PRC_CI_AS NULL,
+    [工单状态] nvarchar(16) COLLATE Chinese_PRC_CI_AS NULL,
+    [生产车间] nvarchar(16) COLLATE Chinese_PRC_CI_AS NULL,
+    [锁类分区] nvarchar(16) COLLATE Chinese_PRC_CI_AS NULL,
+    [锁体分区] nvarchar(16) COLLATE Chinese_PRC_CI_AS NULL,
+    [生产线编号] nvarchar(30) COLLATE Chinese_PRC_CI_AS NULL,
+    [订单批号] nvarchar(50) COLLATE Chinese_PRC_CI_AS NULL,
+    [料品编码] nvarchar(50) COLLATE Chinese_PRC_CI_AS NULL,
+    [料品名称] nvarchar(50) COLLATE Chinese_PRC_CI_AS NULL,
+    [规格型号] nvarchar(255) COLLATE Chinese_PRC_CI_AS NULL,
+    [订单数量] int NULL,
+    [计划开始时间] datetime NULL,
+    [计划完成时间] datetime NULL,
+    [计划产量] int NULL,
+    [标准产量] int NULL,
+    [实际产量] int NULL,
+    [上报产量] int NULL,
+    [确定交期] datetime NULL,
+    [商标] nvarchar(50) COLLATE Chinese_PRC_CI_AS NULL,
+    [年份代号] nvarchar(50) COLLATE Chinese_PRC_CI_AS NULL,
+    [邮箱编码] nvarchar(150) COLLATE Chinese_PRC_CI_AS NULL,
+    [客户] nvarchar(50) COLLATE Chinese_PRC_CI_AS NULL,
+    [OpExternalId] nvarchar(250) COLLATE Chinese_PRC_CI_AS NULL,
+    [PRT_QTY] int NULL,
+    [weight_before] real NULL,
+    [weight_after] real NULL,
+    [drawName] varchar(50) COLLATE Chinese_PRC_CI_AS NULL,
+    [drawUrl] varchar(50) COLLATE Chinese_PRC_CI_AS NULL,
+    [position] varchar(100) COLLATE Chinese_PRC_CI_AS NULL,
+    [general_name] varchar(100) COLLATE Chinese_PRC_CI_AS NULL,
+    [issued] int NULL,
+    CONSTRAINT PK_派工单 PRIMARY KEY ([_Identify])
+);
+
+
