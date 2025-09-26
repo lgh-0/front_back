@@ -47,4 +47,6 @@ node的安装地址  C:\Tools\Node
 
 Super 123456
 
+前端修改密码的地方
+D:\start-9-19\lyh-Reimbursement-ver1.06\Reimbursement\ABUS\src\views\auth\forget-password\index.vue
 
