@@ -50,6 +50,9 @@ Super 123456
 前端修改密码的地方
 Reimbursement\ABUS\src\views\system\user-center\index.vue
 9-29 完成改密码需求
-9-29 新增 
+9-29 新增 增加审批功能，如透明化管理
+D:\start-9-19\Devolopment\code-ABUS\src\pages\TransparentManagement\apsRequirements.vue
+D:\start-9-19\Devolopment\fastAPI\demo1\routers\apsRequirements.py
+
 
 
