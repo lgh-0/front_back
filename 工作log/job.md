@@ -55,4 +55,8 @@ D:\start-9-19\Devolopment\code-ABUS\src\pages\TransparentManagement\apsRequireme
 D:\start-9-19\Devolopment\fastAPI\demo1\routers\apsRequirements.py
 
 
+ bigdata中工序查询较慢 D:\start-9-19\Devolopment\code-ABUS\src\pages\ABUS_BigData\order.vue
+ 后端D:\start-9-19\Devolopment\fastAPI\demo1\Abus_BigData_Cal\order.py
+
+
 
