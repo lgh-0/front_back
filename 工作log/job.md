@@ -61,4 +61,22 @@ ABUS数据系统
 admin 密码3edc@YHN
 
 
+项目管理表：
+```sql
+CREATE TABLE department2020.dbo.项目管理 (
+	RequestID int IDENTITY(1,1) NOT NULL,
+	申请时间 datetime NOT NULL,
+	项目名称 nvarchar(255) COLLATE Chinese_PRC_CI_AS NOT NULL,
+	申请经理 nvarchar(255) COLLATE Chinese_PRC_CI_AS NOT NULL,
+	申请原因 nvarchar(MAX) COLLATE Chinese_PRC_CI_AS NOT NULL,
+	预计完成时间 date NOT NULL,
+	批复意见 nvarchar(MAX) COLLATE Chinese_PRC_CI_AS NULL,
+	批复时间 datetime NULL,
+	状态 varchar(50) COLLATE Chinese_PRC_CI_AS NULL
+);
+```
+
+
+
+
 
