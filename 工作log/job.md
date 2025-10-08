@@ -75,7 +75,9 @@ CREATE TABLE department2020.dbo.项目管理 (
 	状态 varchar(50) COLLATE Chinese_PRC_CI_AS NULL
 );
 ```
-
+密码
+Abus@123456
+3edc@YHN
 
 
 
