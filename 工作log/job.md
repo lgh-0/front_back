@@ -74,6 +74,21 @@ CREATE TABLE department2020.dbo.项目管理 (
 	批复时间 datetime NULL,
 	状态 varchar(50) COLLATE Chinese_PRC_CI_AS NULL
 );
+-- 选择前1000行
+SELECT TOP 100 * 
+FROM 表名;
+
+select 
+-- 查看种类数
+-- ✅ 方法1：查看不同的车间名称
+SELECT DISTINCT [车间名称]
+FROM APS_SUO.dbo.统计后工序
+WHERE [车间名称] IS NOT NULL AND [车间名称] <> '';
+
+-- ✅ 方法2：统计有多少个不同的车间名称
+SELECT COUNT(DISTINCT [车间名称]) AS 不同车间数量
+FROM APS_SUO.dbo.统计后工序
+WHERE [车间名称] IS NOT NULL AND [车间名称] <> '';
 ```
 密码
 Abus@123456
