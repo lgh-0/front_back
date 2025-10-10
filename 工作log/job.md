@@ -94,6 +94,27 @@ WHERE [车间名称] IS NOT NULL AND [车间名称] <> '';
 Abus@123456
 3edc@YHN
 
+ 
+万晖五金数据平台 http://report.abushardware.com/
+总地址 http://main.abushardware.com/
+fastapi-cache==0.1.0
+venv命令.\venv\Scripts\activate
+uvicorn mains:app --reload
+```shell
+# 卸载原来的旧包
+(venv) PS D:\start-9-19\Devolopment\fastAPI\demo1> pip list | Select-String fastapi-cache
+
+fastapi-cache     0.1.0
+fastapi-cache2    0.2.2
 
 
+(venv) PS D:\start-9-19\Devolopment\fastAPI\demo1> pip uninstall fastapi-cache -y
+Found existing installation: fastapi-cache 0.1.0
+Uninstalling fastapi-cache-0.1.0:
+  Successfully uninstalled fastapi-cache-0.1.0
+(venv) PS D:\start-9-19\Devolopment\fastAPI\demo1> pip list | Select-String fastapi-cache
 
+fastapi-cache2    0.2.2
+
+(venv) PS D:\start-9-19\Devolopment\fastAPI\demo1> 
+```
