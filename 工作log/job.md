@@ -217,4 +217,105 @@ WHERE t.结束日期 >=getdate()-7
 
 
 
+
 ```
+
+SELECT  top 1000
+    t.*,
+    o.proccess AS 下一道工序ID
+FROM (
+    SELECT 
+        a.JobExternalId AS 工单编号,
+        OrderNumber AS 订单批号,
+        ResName AS 生产线编号,
+        emp_name AS 员工名称,
+        ItemExternalId AS 料品编码,
+        EachFinishedQty AS 报工数量,
+        StartDate AS 开始日期,
+        FinishedDate AS 结束日期, 
+        b.生产车间,
+        CASE 
+          WHEN b.OpExternalId IS NULL OR b.OpExternalId NOT LIKE 'op%' 
+               THEN b.OpExternalId
+          ELSE COALESCE(p.proccess, b.OpExternalId)  -- 防止没匹配到时为空
+        END AS 当前工序ID
+    FROM APS_FinishedQty a
+    LEFT JOIN 派工单_backup b 
+        ON a.JobExternalId = b.工单编号
+    LEFT JOIN APS.APS_SUO.dbo.item_proccess p
+        ON b.OpExternalId = p.opexternalid
+       AND b.OpExternalId LIKE 'op%'
+
+    UNION ALL
+    SELECT 
+        a.JobExternalId, OrderNumber, ResName, emp_name,
+        ItemExternalId, EachFinishedQty, StartDate, FinishedDate, 
+        b.生产车间,
+          CASE 
+          WHEN b.OpExternalId IS NULL OR b.OpExternalId NOT LIKE 'op%' 
+               THEN b.OpExternalId
+          ELSE COALESCE(p.proccess, b.OpExternalId)  -- 防止没匹配到时为空
+        END AS 当前工序ID
+    FROM APS_FinishedQty_Key a
+    LEFT JOIN 派工单_backup b ON a.JobExternalId=b.工单编号
+
+  LEFT JOIN APS.APS_SUO.dbo.item_proccess p
+        ON b.OpExternalId = p.opexternalid
+       AND b.OpExternalId LIKE 'op%'
+
+    UNION ALL
+    SELECT 
+        a.JobExternalId, OrderNumber, ResName, emp_name,
+        ItemExternalId, EachFinishedQty, StartDate, FinishedDate, 
+        b.生产车间,
+         CASE 
+          WHEN b.OpExternalId IS NULL OR b.OpExternalId NOT LIKE 'op%' 
+               THEN b.OpExternalId
+          ELSE COALESCE(p.proccess, b.OpExternalId)  -- 防止没匹配到时为空
+        END AS 当前工序ID
+    FROM APS_FinishedQty_ST a
+    LEFT JOIN 派工单_backup b ON a.JobExternalId=b.工单编号
+	  LEFT JOIN APS.APS_SUO.dbo.item_proccess p
+        ON b.OpExternalId = p.opexternalid
+       AND b.OpExternalId LIKE 'op%'
+
+    UNION ALL
+    SELECT 
+        a.JobExternalId, OrderNumber, ResName, emp_name,
+        ItemExternalId, EachFinishedQty, StartDate, FinishedDate, 
+        b.生产车间,
+          CASE 
+          WHEN b.OpExternalId IS NULL OR b.OpExternalId NOT LIKE 'op%' 
+               THEN b.OpExternalId
+          ELSE COALESCE(p.proccess, b.OpExternalId)  -- 防止没匹配到时为空
+        END AS 当前工序ID
+    FROM APS_FinishedQty_SX a
+    LEFT JOIN 派工单_backup b ON a.JobExternalId=b.工单编号
+	  LEFT JOIN APS.APS_SUO.dbo.item_proccess p
+        ON b.OpExternalId = p.opexternalid
+       AND b.OpExternalId LIKE 'op%'
+    UNION ALL
+    SELECT 
+        a.JobExternalId, OrderNumber, ResName, emp_name,
+        ItemExternalId, EachFinishedQty, StartDate, FinishedDate, 
+        b.生产车间,
+         CASE 
+          WHEN b.OpExternalId IS NULL OR b.OpExternalId NOT LIKE 'op%' 
+               THEN b.OpExternalId
+          ELSE COALESCE(p.proccess, b.OpExternalId)  -- 防止没匹配到时为空
+        END AS 当前工序ID
+    FROM APS_FinishedQty_SL a
+    LEFT JOIN 派工单_backup b ON a.JobExternalId=b.工单编号
+	  LEFT JOIN APS.APS_SUO.dbo.item_proccess p
+        ON b.OpExternalId = p.opexternalid
+       AND b.OpExternalId LIKE 'op%'
+) t
+LEFT JOIN APS.APS_SUO.dbo.offline_process o
+    ON t.当前工序ID = o.before_proccess
+	and t.料品编码 like o.item_no +'%'
+WHERE t.结束日期 >=getdate()-7
+
+
+
+
+
