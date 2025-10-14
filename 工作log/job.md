@@ -120,6 +120,7 @@ fastapi-cache2    0.2.2
 ```
 
 ```sql
+-- 只是查询前一周
 SELECT  top 1000
     t.*,
     o.proccess AS 下一道工序ID
