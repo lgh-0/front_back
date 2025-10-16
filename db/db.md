@@ -147,7 +147,24 @@ PostgreSQL: "
 要不要我帮你写一份这条查询在 三种数据库（SQL Server / MySQL / PostgreSQL） 的完整对照版本？
 
 
+```sql
+SELECT 
+    [datetime]
+FROM [IOServer].[dbo].[NoiseSecord]
+ORDER BY [datetime] DESC; --日期值大的降序
 
+SELECT 
+    value,
+    FORMAT(datetime, 'yyyy-MM-ddTHH:mm:ss.fff') AS datetime
+FROM [IOServer].[dbo].[NoiseSecord]
+WHERE 
+    esn = 'LCZS0001'
+    AND datetime >= '2025-09-18 00:00:00'
+    AND datetime <  '2025-09-19 00:00:00'
+ORDER BY datetime ASC; 
+
+
+```
 
 
 
