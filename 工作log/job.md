@@ -1,5 +1,7 @@
 192.168.41.57
 sa  
+
+
 ```html
 <!--  9-26新增销售订单交期修改记录查询 -->
 <template>
@@ -328,3 +330,127 @@ WHERE t.结束日期 >=getdate()-7
 申请人-User-123456
 
 ## pnpm run dev
+
+## 2025-10-31数据库的快照
+```sql
+-- ============================================
+-- 1. 用户表
+-- ============================================
+CREATE TABLE Reimbursement.dbo.[user] (
+    id INT IDENTITY(1,1) NOT NULL,
+    name NVARCHAR(50) NOT NULL,                    -- 改为NOT NULL
+    username NVARCHAR(50) NOT NULL UNIQUE,         -- 添加UNIQUE约束
+    password VARCHAR(100) NOT NULL,                -- 改为NOT NULL
+    [role] NVARCHAR(20) NOT NULL                   -- 改为NOT NULL
+        CHECK ([role] IN ('员工', '经理', '系统管理员', '财务管理员')),  -- 添加CHECK约束
+    supervisor_id INT NULL,
+    department NVARCHAR(50) NULL,
+    workshop NVARCHAR(50) NULL,
+    created_at DATETIME NOT NULL DEFAULT GETDATE(), -- 添加DEFAULT
+    
+    CONSTRAINT PK_user PRIMARY KEY (id),
+    CONSTRAINT FK_user_supervisor FOREIGN KEY (supervisor_id) 
+        REFERENCES [user](id) ON DELETE NO ACTION  -- 添加外键
+);
+
+-- 创建索引
+CREATE INDEX IX_user_username ON [user](username);
+CREATE INDEX IX_user_supervisor ON [user](supervisor_id);
+
+-- ============================================
+-- 2. 报销单主表
+-- ============================================
+CREATE TABLE Reimbursement.dbo.expense_reports (
+    id INT IDENTITY(1,1) NOT NULL,                 -- 添加IDENTITY
+    user_id INT NOT NULL,                          -- 改为NOT NULL
+    applicant NVARCHAR(50) NOT NULL,               -- 改为NOT NULL
+    input_date DATE NOT NULL,                      -- 改为NOT NULL
+    total_amount DECIMAL(18,2) NOT NULL,           -- 改为NOT NULL
+    
+    -- 审核人(经理)审批
+    current_approver INT NULL,                     -- 当前审核人ID
+    status NVARCHAR(20) NULL                       -- 待审/已批/退回
+        CHECK (status IN ('待审', '已批', '退回')),
+    reject_reason NVARCHAR(500) NULL,              -- 增加长度
+    approver_time DATETIME NULL,                   -- 新增：审核时间
+    
+    -- 财务审批
+    finance_approver INT NULL,                     -- 新增：财务审核人ID
+    finance_status NVARCHAR(20) NULL               -- 待审/已批/退回
+        CHECK (finance_status IN ('待审', '已批', '退回')),
+    finance_reason NVARCHAR(500) NULL,             -- 统一长度
+    finance_time DATETIME NULL,
+    
+    created_at DATETIME NOT NULL DEFAULT GETDATE(),
+    
+    CONSTRAINT PK_expense_reports PRIMARY KEY (id),
+    CONSTRAINT FK_reports_user FOREIGN KEY (user_id) 
+        REFERENCES [user](id) ON DELETE NO ACTION,
+    CONSTRAINT FK_reports_approver FOREIGN KEY (current_approver) 
+        REFERENCES [user](id) ON DELETE NO ACTION,
+    CONSTRAINT FK_reports_finance FOREIGN KEY (finance_approver) 
+        REFERENCES [user](id) ON DELETE NO ACTION
+);
+
+-- 创建索引
+CREATE INDEX IX_reports_user ON expense_reports(user_id);
+CREATE INDEX IX_reports_status ON expense_reports(status, finance_status);
+CREATE INDEX IX_reports_approver ON expense_reports(current_approver);
+CREATE INDEX IX_reports_date ON expense_reports(input_date);
+
+-- ============================================
+-- 3. 报销明细表
+-- ============================================
+CREATE TABLE Reimbursement.dbo.expense_items (
+    id INT IDENTITY(1,1) NOT NULL,
+    report_id INT NOT NULL,                        -- 改为NOT NULL
+    [date] DATE NOT NULL,                          -- 改为NOT NULL
+    category NVARCHAR(100) NULL,                   -- 改为NVARCHAR
+    sub_cat NVARCHAR(100) NULL,
+    reason NVARCHAR(500) NULL,                     -- 增加长度
+    department NVARCHAR(50) NULL,
+    workshop NVARCHAR(50) NULL,
+    licence NVARCHAR(50) NULL,
+    invoice NVARCHAR(100) NULL,
+    attachments INT NULL DEFAULT 0,                -- 添加DEFAULT
+    amount DECIMAL(18,2) NOT NULL,                 -- 改为NOT NULL
+    
+    CONSTRAINT PK_expense_items PRIMARY KEY (id),
+    CONSTRAINT FK_items_report FOREIGN KEY (report_id) 
+        REFERENCES expense_reports(id) ON DELETE CASCADE  -- 级联删除
+);
+
+-- 创建索引
+CREATE INDEX IX_items_report ON expense_items(report_id);
+CREATE INDEX IX_items_date ON expense_items([date]);
+CREATE TABLE Reimbursement.dbo.expense_reports (
+    id INT IDENTITY(1,1) NOT NULL,
+    user_id INT NOT NULL,
+    applicant NVARCHAR(50) NOT NULL,              -- 申请人姓名（快照）
+    input_date DATE NOT NULL,
+    total_amount DECIMAL(18,2) NOT NULL,
+    
+    -- 审核人信息（提交时快照）
+    approver_id INT NULL,                          -- 审核人ID（快照）
+    approver_name NVARCHAR(50) NULL,               -- 审核人姓名（快照）
+    approver_department NVARCHAR(50) NULL,         -- 审核人部门（快照）
+    status NVARCHAR(20) NULL,
+    reject_reason NVARCHAR(500) NULL,
+    approver_time DATETIME NULL,
+    
+    -- 财务信息
+    finance_id INT NULL,                           -- 财务审核人ID
+    finance_name NVARCHAR(50) NULL,                -- 财务审核人姓名（快照）
+    finance_status NVARCHAR(20) NULL,
+    finance_reason NVARCHAR(500) NULL,
+    finance_time DATETIME NULL,
+    
+    created_at DATETIME NOT NULL DEFAULT GETDATE(),
+    
+    CONSTRAINT PK_expense_reports PRIMARY KEY (id),
+    CONSTRAINT FK_reports_user FOREIGN KEY (user_id) 
+        REFERENCES [user](id) ON DELETE NO ACTION,
+    -- 注意：不对approver_id和finance_id设置外键，允许人员离职后仍保留历史记录
+);
+
+```
