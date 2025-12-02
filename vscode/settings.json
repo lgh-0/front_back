@@ -1,0 +1,22 @@
+{
+    
+    "security.workspace.trust.untrustedFiles": "open",
+    "files.autoSave": "onWindowChange",
+    "files.autoSaveDelay": 1000,
+    // Code Runner 配置
+    "code-runner.runInTerminal": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.preserveFocus": false,
+    "C_Cpp.default.compileCommands": [
+        ""
+    ],
+    // 执行器映射 - 输出到 bin 子目录
+    "code-runner.executorMap": {
+        "cpp": "cd $dir && powershell -Command \"if(-not(Test-Path 'bin')) { New-Item -ItemType Directory -Name 'bin' -Force | Out-Null }; & 'D:/tools/mingW/mingw64/bin/g++' -o bin/$fileNameWithoutExt $fileName; & './bin/$fileNameWithoutExt.exe'\"",
+        "c": "cd $dir && powershell -Command \"if(-not(Test-Path 'bin')) { New-Item -ItemType Directory -Name 'bin' -Force | Out-Null }; & 'D:/tools/mingW/mingw64/bin/gcc' -o bin/$fileNameWithoutExt $fileName; & './bin/$fileNameWithoutExt.exe'\""
+    },
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "explorer.confirmDelete": false,
+    "explorer.confirmPasteNative": false
+}
