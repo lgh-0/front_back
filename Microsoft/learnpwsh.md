@@ -72,4 +72,36 @@ WhatIfPreference               False
 
 PS C:\Users\ShiXiSheng001>
 
+✅psm1 是干嘛的？
+用来写 模块
+不能像脚本那样直接运行
+通过 Import-Module 加载
+
+✅$color = @('red','green','blue')
+$color = [System.Collections.ArrayList]@()
+$color.Add('red')
+$color.Remove('red')
+$color.Insert(1,'green')
+$color.Gettype()
+
+
+✅Hashtable
+$user = @{
+    name = 'John'
+    age = 30
+    city = 'New York'
+}
+$user.keys
+$user.values
+$user.Add('name','John')
+$user.Remove('name')
+pwsh组合命令的两种方式：管道和脚本
+
+✅执行脚本的方式
+PS D:\kong> D:\kong\service.ps1
+PS D:\kong> .\service
+PS D:\kong> pwsh -file .\service.ps1
+PS D:\kong> powershell -file .\service.ps1
+PS D:\kong> powershell -ExecutionPolicy Bypass -File .\service.ps1
+
 ```

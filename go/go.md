@@ -35,4 +35,45 @@ func main() {
 	http.ListenAndServe(":8083", nil)
 }
 
+✅运行go程序的几种方式
+1.在目录下初始化模块 go mod init [目录]
+2.再编译 go build
+3.运行 .\hello.go
+
+1.直接运行 go run hello.go
+
+✅
+
+✅
+
+✅
+✅
+
+✅
+
+✅
+
+✅
+✅
+
+✅
+
+✅
+
+✅
+✅
+
+✅
+
+✅
+
+✅
+✅
+
+✅
+
+✅
+
+✅
+
 ```
