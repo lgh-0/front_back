@@ -163,6 +163,12 @@ WHERE
     AND datetime <  '2025-09-19 00:00:00'
 ORDER BY datetime ASC; 
 
+✅统计某个表整行不重复的行数
+SELECT COUNT(*)
+FROM (
+    SELECT DISTINCT *
+    FROM [department2020].[dbo].[PGD_WorkOrder_backup]
+) AS t;
 
 ```
 

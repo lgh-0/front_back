@@ -42,9 +42,18 @@ func main() {
 
 1.直接运行 go run hello.go
 
-✅
+✅if和简短语句
+if语句可以在条件表达式前执行一个简短语句
+if shortStatement; condition{
 
-✅
+}
+二分法：速度慢但稳定
+查表法：嵌入式系统常用，预先计算好值
+硬件指令：现代CPU有专门的平方根指令（如 sqrtss）
+C标准库：通常用优化的汇编实现
+
+✅ switch语句
+无条件的switch语句和if-else语句一样。有条件的switch语句默认break，可以使用fallthrough来实现
 
 ✅
 ✅

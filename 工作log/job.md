@@ -1,5 +1,10 @@
-192.168.41.57
-sa  
+✅class Settings(BaseSettings):
+    db_server: str = os.getenv("DB_SERVER", "192.168.41.57")
+    db_database: str = os.getenv("DB_DATABASE", "department2020")
+    db_username: str = os.getenv("DB_USERNAME", "sa")
+    db_password: str = os.getenv("DB_PASSWORD", "3518i")
+
+
 
 
 ```html
