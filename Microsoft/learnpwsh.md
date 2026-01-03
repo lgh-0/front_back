@@ -104,4 +104,36 @@ PS D:\kong> pwsh -file .\service.ps1
 PS D:\kong> powershell -file .\service.ps1
 PS D:\kong> powershell -ExecutionPolicy Bypass -File .\service.ps1
 
+✅更改Path
+查看系统Path [Environment]::GetEnvironmentVariable("Path", "Machine") -split ';'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ```
