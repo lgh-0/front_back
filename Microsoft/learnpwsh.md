@@ -106,6 +106,105 @@ PS D:\kong> powershell -ExecutionPolicy Bypass -File .\service.ps1
 
 ✅更改Path
 查看系统Path [Environment]::GetEnvironmentVariable("Path", "Machine") -split ';'
+查看用户Path [Environment]::GetEnvironmentVariable("Path", "User") -split ';'
+修改系统Path 
+$old = [Environment]::GetEnvironmentVariable("Path", "Machine")
+$new = $old + ";C:\Some\System\Tool"
+[Environment]::SetEnvironmentVariable("Path", $new, "Machine")
+
+修改系统path
+$add = "C:\Program Files\Vim\vim91"
+$old = [Environment]::GetEnvironmentVariable("Path", "Machine") -split ';'
+if ($old -notcontains $add) {
+    $new = ($old + $add) -join ';'
+    [Environment]::SetEnvironmentVariable("Path", $new, "Machine")
+    Write-Host "已添加到系统 Path：" $add
+} else {
+    Write-Host "系统 Path 中已存在：" $add
+}
+
+修改用户Path
+$newDir = "C:\MyTools\bin"
+$old = [Environment]::GetEnvironmentVariable("Path", "User")
+if ($old -notmatch [regex]::Escape($newDir)) {
+    $new = $old + ";" + $newDir
+    [Environment]::SetEnvironmentVariable("Path", $new, "User")
+}
+
+删除某个用户Path
+$remove = "C:\Users\LGH\miniconda3\Scripts"
+$old = [Environment]::GetEnvironmentVariable("Path", "User") -split ';'
+$new = $old | Where-Object { $_ -and $_ -ne $remove }
+[Environment]::SetEnvironmentVariable("Path", ($new -join ';'), "User")
+
+删除某个系统Path
+# 要删除的路径
+$remove = "C:\Program Files\Vim\vim91"
+# 读取系统 Path
+$old = [Environment]::GetEnvironmentVariable("Path", "Machine") -split ';'
+# 过滤掉要删除的路径
+$new = $old | Where-Object {
+    $_ -and $_.TrimEnd('\') -ne $remove.TrimEnd('\')
+}
+# 写回系统 Path
+[Environment]::SetEnvironmentVariable("Path", ($new -join ';'), "Machine")
+Write-Host "已从系统 Path 删除：" $remove
+
+
+删除系统的多个Path
+$removeList = @(
+    "C:\Program Files\Vim\vim91",
+    "C:\OldTool\bin"
+)
+$old = [Environment]::GetEnvironmentVariable("Path", "Machine") -split ';'
+$new = $old | Where-Object {
+    $_ -and ($removeList | ForEach-Object { $_.TrimEnd('\') }) -notcontains $_.TrimEnd('\')
+}
+[Environment]::SetEnvironmentVariable("Path", ($new -join ';'), "Machine")
+
+✅conda的shell问题
+S C:\Users\LGH> conda env list
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                     D:\Anaconda
+
+PS C:\Users\LGH> conda activate base
+
+CondaError: Run 'conda init' before 'conda activate'
+
+PS C:\Users\LGH> conda init powershell
+no change     D:\Anaconda\Scripts\conda.exe
+no change     D:\Anaconda\Scripts\conda-env.exe
+no change     D:\Anaconda\Scripts\conda-script.py
+no change     D:\Anaconda\Scripts\conda-env-script.py
+no change     D:\Anaconda\condabin\conda.bat
+no change     D:\Anaconda\Library\bin\conda.bat
+no change     D:\Anaconda\condabin\_conda_activate.bat
+no change     D:\Anaconda\condabin\rename_tmp.bat
+no change     D:\Anaconda\condabin\conda_auto_activate.bat
+no change     D:\Anaconda\condabin\conda_hook.bat
+no change     D:\Anaconda\Scripts\activate.bat
+no change     D:\Anaconda\condabin\activate.bat
+no change     D:\Anaconda\condabin\deactivate.bat
+modified      D:\Anaconda\Scripts\activate
+modified      D:\Anaconda\Scripts\deactivate
+modified      D:\Anaconda\etc\profile.d\conda.sh
+modified      D:\Anaconda\etc\fish\conf.d\conda.fish
+no change     D:\Anaconda\shell\condabin\Conda.psm1
+modified      D:\Anaconda\shell\condabin\conda-hook.ps1
+no change     D:\Anaconda\Lib\site-packages\xontrib\conda.xsh
+modified      D:\Anaconda\etc\profile.d\conda.csh
+modified      C:\Users\LGH\Documents\PowerShell\profile.ps1
+modified      C:\Users\LGH\Documents\WindowsPowerShell\profile.ps1
+
+==> For changes to take effect, close and re-open your current shell. <==
+
+PS C:\Users\LGH>
+
+
 
 
 
