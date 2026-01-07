@@ -111,3 +111,31 @@ app.include_router(router)：把子路由合并到总路由
 - 这样前端就能通过请求 http://host:port/xxx 调用对应接口。
 
 ✅ 所以，app.include_router(login.router) 的意思就是：把 login.py 里定义的那组 API 接口挂到后端总应用 app 上。
+
+
+✅
+好了！我已经成功修改了原文件，使其完全兼容 SQL Server 2000。主要改动：
+主要修改
+移除了所有临时表和变量声明
+不再使用 DECLARE、CREATE TABLE、DROP TABLE
+这些在 SQL Server 2000 中通过 pyodbc 执行会有问题
+使用子查询替代临时表
+班次数据改为 UNION ALL 的子查询
+所有逻辑在单条 SQL 中完成
+简化了执行流程
+只需一次 cursor.execute()
+传递5个参数：(start_date, start_date, end_date, start_date, end_date)
+移除了临时表清理代码
+因为不再使用临时表
+这通常表示 SQL 执行失败。由于你使用了多条 SQL 语句（DECLARE、CREATE TABLE、INSERT、SELECT、DROP TABLE），pyodbc 可能无法正确处理。
+
+移除了所有变量声明
+SQL Server 2000 不支持 DECLARE 和变量使用
+直接使用参数占位符 ?
+使用子查询替代临时表
+班次数据改为 UNION ALL 子查询
+避免了 CREATE TABLE 和 DROP TABLE
+简化 SQL 结构
+单条 SQL 语句完成所有查询
+兼容 SQL Server 2000 的语法限制
+✅✅✅✅✅✅✅
